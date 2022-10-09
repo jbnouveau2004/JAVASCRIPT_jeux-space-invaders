@@ -279,11 +279,11 @@ document.getElementById('go').src = 'data:image/svg+xml;base64,' + btoa(new XMLS
                         }
                         if(level_next == level){ // test si le level n'a pas évolué
                             y += dy; // incrémentation de la balle vers le bas
-                            }else{ // sinon les balles envoyées dans le level précédent sont effacées, déplacées vers l'extérieur au même endroit et arrêtées
+                        }else{ // sinon les balles envoyées dans le level précédent sont effacées, déplacées vers l'extérieur au même endroit et arrêtées
                                 format2d.clearRect(x, y, 2, 10);
                                 x = 100000;
                                 y = 100000;
-                            }
+                        }
                     }
                 setInterval(balle_invader, 120); // vitesse de la balle de l'invader 1
             }
@@ -328,11 +328,11 @@ document.getElementById('go').src = 'data:image/svg+xml;base64,' + btoa(new XMLS
                         }
                         if(level_next == level){ // test si le level n'a pas évolué
                             y += dy; // incrémentation de la balle vers le bas
-                            }else{ // sinon les balles envoyées dans le level précédent sont effacées, déplacées vers l'extérieur au même endroit et arrêtées
+                        }else{ // sinon les balles envoyées dans le level précédent sont effacées, déplacées vers l'extérieur au même endroit et arrêtées
                                 format2d.clearRect(x, y, 2, 10);
                                 x = 100000;
                                 y = 100000;
-                            }
+                        }
                     }
                 setInterval(balle_invader, 120); // vitesse de la balle de l'invader 2
             }
@@ -377,11 +377,11 @@ document.getElementById('go').src = 'data:image/svg+xml;base64,' + btoa(new XMLS
                         }
                         if(level_next == level){ // test si le level n'a pas évolué
                             y += dy; // incrémentation de la balle vers le bas
-                            }else{ // sinon les balles envoyées dans le level précédent sont effacées, déplacées vers l'extérieur au même endroit et arrêtées
+                        }else{ // sinon les balles envoyées dans le level précédent sont effacées, déplacées vers l'extérieur au même endroit et arrêtées
                                 format2d.clearRect(x, y, 2, 10);
                                 x = 100000;
                                 y = 100000;
-                            }
+                        }
                     }
                 setInterval(balle_invader, 120); // vitesse de la balle de l'invader 3
             }
@@ -426,11 +426,11 @@ document.getElementById('go').src = 'data:image/svg+xml;base64,' + btoa(new XMLS
                         }
                         if(level_next == level){ // test si le level n'a pas évolué
                             y += dy; // incrémentation de la balle vers le bas
-                            }else{ // sinon les balles envoyées dans le level précédent sont effacées, déplacées vers l'extérieur au même endroit et arrêtées
+                        }else{ // sinon les balles envoyées dans le level précédent sont effacées, déplacées vers l'extérieur au même endroit et arrêtées
                                 format2d.clearRect(x, y, 2, 10);
                                 x = 100000;
                                 y = 100000;
-                            }
+                        }
 
                     }
                 setInterval(balle_invader, 120); // vitesse de la balle de l'invader 4
@@ -444,6 +444,11 @@ document.getElementById('go').src = 'data:image/svg+xml;base64,' + btoa(new XMLS
         function balle_vaisseau(){ // fonction balle du vaisseau lancé
             format2d.fillRect(x, y, 2, 10); // affichage de la balle avec sa nouvelle position
             format2d.clearRect(x, y+10, 2, 10);
+            if(level_next != level){ // si changement de niveau
+                format2d.clearRect(x, y, 2, 10); // effacement balle
+                x = -100000; // déplacement hors du décord
+                y = -100000;
+            }
             if(x>=invader1x && x<=(invader1x+20) && y<=(invader1y+20)){ // si invander 1 touché:
                 format2d.clearRect(invader1x, invader1y, 20, 20); // on efface
                 invader1x = 10000; // on le déplace
@@ -452,7 +457,6 @@ document.getElementById('go').src = 'data:image/svg+xml;base64,' + btoa(new XMLS
                 y -= 1000; // on déplace la balle fantôme
                 invader1_vie=0;
                 score += calcul_score; // ajout des points
-                return;  // arrêt de la fonction de cette balle
             }
             if(x>=invader2x && x<=(invader2x+20) && y<=(invader2y+20)){ // si invander 2 touché:
                 format2d.clearRect(invader2x, invader2y, 20, 20); // on efface
@@ -462,7 +466,6 @@ document.getElementById('go').src = 'data:image/svg+xml;base64,' + btoa(new XMLS
                 y -= 1000; // on déplace la balle fantôme
                 invader2_vie=0;
                 score += calcul_score; // ajout des points
-                return;  // arrêt de la fonction de cette balle
             }
             if(x>=invader3x && x<=(invader3x+20) && y<=(invader3y+20)){ // si invander 3 touché:
                 format2d.clearRect(invader3x, invader3y, 20, 20); // on efface
@@ -472,7 +475,6 @@ document.getElementById('go').src = 'data:image/svg+xml;base64,' + btoa(new XMLS
                 y -= 1000; // on déplace la balle fantôme
                 invader3_vie=0;
                 score += calcul_score; // ajout des points
-                return;  // arrêt de la fonction de cette balle
             }
             if(x>=invader4x && x<=(invader4x+20) && y<=(invader4y+20)){ // si invander 4 touché:
                 format2d.clearRect(invader4x, invader4y, 20, 20); // on efface
@@ -482,22 +484,15 @@ document.getElementById('go').src = 'data:image/svg+xml;base64,' + btoa(new XMLS
                 y -= 1000; // on déplace la balle fantôme
                 invader4_vie=0;
                 score += calcul_score; // ajout des points
-                return; // arrêt de la fonction de cette balle
             }
             if(y<0){ // si la balle touche le décord
                 x = -100000;
                 y = -100000;
-                return; // on arrête la function de cette balle
-            }else if(level_next == level){ // test si le level n'a pas évolué
+            }
+            if(level_next == level){ // test si le level n'a pas évolué
             y -= dy; // incrémentation de la balle vers le haut
-            }else{ // sinon balle envoyées dans le level précédent
-                format2d.clearRect(x, y, 2, 10); // effacement balle
-                x = -100000; // déplacement hors du décord
-                y = -100000;
-                return; // arrêt de la fonction de cette balle
             }
         }
-
         setInterval(balle_vaisseau, 100); // vitesse de la balle vu vaisseau
         }
 
@@ -549,8 +544,7 @@ document.getElementById('go').src = 'data:image/svg+xml;base64,' + btoa(new XMLS
             format2d.drawImage(vaisseau, vaisseaux, vaisseauy, 20, 20); // réaffichage du vaisseau
         }
 
-        // test si level supplémentaire
-        function level_up(){
+        function level_up(){ // fonction si level supplémentaire ou si c'est gagné
             level += 1;
             calcul_score *= 2;
             if(vitesse3>1100){ // si on doit augmenter la vitesse des 4 invaders
@@ -563,6 +557,8 @@ document.getElementById('go').src = 'data:image/svg+xml;base64,' + btoa(new XMLS
                 invader3_revie();
                 invader4_revie();
             }else{ // sinon c'est gagné
+                vaisseaux = 10000; // isolement du vaisseau à l'extérieur
+                vaisseauy = 10000;
                 game_over_si_1 = 1; // arrêt du jeux
                 invader1_vie = 0; // arrêt de l'invader 1
                 invader2_vie = 0; // arrêt de l'invader 2
